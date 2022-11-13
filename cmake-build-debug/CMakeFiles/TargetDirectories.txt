@@ -1,0 +1,3 @@
+C:/Users/Erik/CLionProjects/ErrorUNO/KC/CERIK/cmake-build-debug/CMakeFiles/ErrorUNO.dir
+C:/Users/Erik/CLionProjects/ErrorUNO/KC/CERIK/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Erik/CLionProjects/ErrorUNO/KC/CERIK/cmake-build-debug/CMakeFiles/rebuild_cache.dir
