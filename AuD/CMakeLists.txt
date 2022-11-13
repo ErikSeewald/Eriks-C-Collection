@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.23)
-project(ErrorUNO)
+project(Eriks-C-Collection)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(ErrorUNO
-        AuD5.c)
+add_executable(Eriks-C-Collection
+        Pointer_List.c)

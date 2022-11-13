@@ -1,1 +1,0 @@
-CMakeLists.txt not found in C:\Users\Erik\CLionProjects\ErrorUNO\KC\CERIK Select CMakeLists.txt
