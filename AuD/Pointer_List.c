@@ -6,22 +6,20 @@ struct element { int value; list next; };
 
 void printList(list *lp)
 {
-    list printP = *lp;
-    while (printP != NULL)
+    while (*lp!= NULL)
     {
-        printf("%d\n", printP->value);
-        printP = printP->next;
+        printf("%d\n", (*lp)->value);
+        lp = &((*lp)->next);
     }
 }
 
 int sum(list *lp)
 {
     int sum = 0;
-    list sumP = *lp;
-    while (sumP != NULL)
+    while (*lp != NULL)
     {
-        sum+= sumP->value;
-        sumP = sumP->next;
+        sum+= (*lp)->value;
+        lp = &((*lp)->next);
     }
     return sum;
 }
