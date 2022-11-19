@@ -4,4 +4,4 @@ project(Eriks-C-Collection)
 set(CMAKE_C_STANDARD 11)
 
 add_executable(Eriks-C-Collection
-        Binary_Tree.c)
+        Pointer_List.c)
