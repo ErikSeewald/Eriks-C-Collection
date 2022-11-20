@@ -68,6 +68,13 @@ void printTree(tree root, int space)
     printTree(root->left, space);
 }
 
+int isRightist(tree t)
+{
+    if (t == NULL) //if the tree has no nodes, it is trivially decided to be rightist
+        return 1;
+    return (prom(t->left)) <= prom(t->right);
+}
+
 int main()
 {
     //Tree 1
@@ -87,13 +94,19 @@ int main()
     tree r2 = createNode(8, rl2, rr2);
     tree root2 = createNode(4, l2, r2);
 
-    tree t = root2;
+    tree t = root1;
 
     printTree(t, 0);
 
     printf("Leaf product: %d", leafprod(t));
 
     printf("\nProm of t is: %d", prom(t));
+
+    if (isRightist(t) == 1)
+        printf("\nT is rightist");
+    else
+        printf("\nT is not rightist");
+
 
     return 0;
 }
