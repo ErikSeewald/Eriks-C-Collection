@@ -119,5 +119,5 @@ int main()
     printf("The list without max values:\n");
     printList(&lp);
 
-return 0;
+    return 0;
 }

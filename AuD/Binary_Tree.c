@@ -21,7 +21,6 @@ void insertl(tree *tp, int n) //insert n at leftmost position
     (*tp)->key = n;
     (*tp)->left = NULL;
     (*tp)->right = NULL;
-
 }
 
 int leafprod(tree t) //product of keys of all nodes with no connections (leaves)
