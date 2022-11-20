@@ -41,15 +41,15 @@ void rmEvens(list *lp)
     }
 }
 
-int getMax(list *l)
+int getMax(list *lp)
 {
     int max = 0;
-    while (*l != NULL)
+    while (*lp != NULL)
     {
-        if ((*l)->value > max)
-        {max = (*l)->value;}
+        if ((*lp)->value > max)
+        {max = (*lp)->value;}
 
-        l = &((*l)->next);
+        lp = &((*lp)->next);
     }
     return max;
 }
@@ -75,6 +75,9 @@ void delmax(list *lp) //deletes the elements with the highest value
 
 void append(list *lp, int n)
 {
+
+    //remember, lp->value does not work in this function because lp points to another list pointer, not to a list
+
     //while the value at the address that local lp points to is NOT NULL
     //set the address local lp will point to to the address of next elements pointer
     //-> Means moving the pointer of local lp to "next" of  element further down the list
