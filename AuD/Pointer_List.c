@@ -8,18 +8,18 @@ void printList(list *lp)
 {
     while (*lp != NULL)
     {
-        printf("%d\n", (*lp)->value);
+        printf("%d, ", (*lp)->value);
         lp = &((*lp)->next);
     }
 }
 
-int sum(list *lp)
+int sum(list lp)
 {
     int sum = 0;
-    while (*lp != NULL)
+    while (lp != NULL)
     {
-        sum+= (*lp)->value;
-        lp = &((*lp)->next);
+        sum+= lp->value;
+        lp = lp->next;
     }
     return sum;
 }
@@ -41,22 +41,22 @@ void rmEvens(list *lp)
     }
 }
 
-int getMax(list *lp)
+int getMax(list lp)
 {
     int max = 0;
-    while (*lp != NULL)
+    while (lp != NULL)
     {
-        if ((*lp)->value > max)
-        {max = (*lp)->value;}
+        if (lp->value > max)
+        {max = lp->value;}
 
-        lp = &((*lp)->next);
+        lp = lp->next;
     }
     return max;
 }
 
 void delmax(list *lp) //deletes the elements with the highest value
 {
-    int max = getMax(lp);
+    int max = getMax(*lp);
 
     while (*lp != NULL)
     {
@@ -107,13 +107,13 @@ int main()
 
     printList(&lp);
 
-    printf("\nThe total sum of all values is: %d\n", sum(&lp));
+    printf("\nThe total sum of all values is: %d\n", sum(lp));
 
-    /*
+/*
     rmEvens(&lp);
     printf("The list without even numbers:\n");
     printList(&lp);
-     */
+*/
 
     delmax(&lp);
     printf("The list without max values:\n");
