@@ -28,16 +28,13 @@ void rmEvens(list *lp)
 {
     while (*lp != NULL)
     {
-        while ((*lp)->value % 2 == 0) //if we remove an even and move in a new even, keep removing
+        if ((*lp)->value % 2 == 0)
         {
-            if ((*lp)->next == NULL) //if we are about to remove an element and it is the last in the list, set it NULL
-            {*lp = NULL; free(*lp); return;}
-
             list templP = *lp;
             *lp = (*lp)->next;
             free(templP);
         }
-        lp = &((*lp)->next);
+        else {lp = &((*lp)->next);}
     }
 }
 
@@ -60,16 +57,13 @@ void delmax(list *lp) //deletes the elements with the highest value
 
     while (*lp != NULL)
     {
-        while ((*lp)->value == max)
+        if ((*lp)->value == max)
         {
-            if ((*lp)->next == NULL)
-            {*lp = NULL; free(*lp); return;}
-
             list templP = *lp;
             *lp = (*lp)->next;
             free(templP);
         }
-        lp = &((*lp)->next);
+        else {lp = &((*lp)->next);}
     }
 }
 

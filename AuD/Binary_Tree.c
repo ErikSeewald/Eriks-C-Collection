@@ -10,6 +10,8 @@ tree createNode(int n, tree l, tree r)
     root->key = n;
     root->left = l;
     root->right = r;
+
+    return root;
 }
 
 void insertl(tree *tp, int n) //insert n at leftmost position
