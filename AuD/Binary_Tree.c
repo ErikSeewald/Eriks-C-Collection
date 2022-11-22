@@ -38,13 +38,10 @@ int leafprod(tree t) //product of keys of all nodes with no connections (leaves)
 
 int prom(tree t) //calculates the distances from the furthest left leaf to the root
 {
-    if (t == NULL)
-        return 0;
-
     if (t->left == NULL && t->right == NULL)
         return 1;
 
-    else if(t->left != NULL)
+    if(t->left != NULL)
         return 1 + prom(t->left);
 
     else

@@ -78,7 +78,6 @@ void append(list *lp, int n)
     while (*lp != NULL)
     {lp = &((*lp)->next);}
 
-    //have the address that local lp now points to be opened up with malloc for a new element
     (*lp) = (list) malloc(sizeof(struct element));
     (*lp)->value = n;
     (*lp)->next = NULL;
