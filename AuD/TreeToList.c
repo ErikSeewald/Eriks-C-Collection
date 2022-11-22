@@ -39,14 +39,15 @@ void treeToEvenList(tree t, list *lp)
     //a list of only even keys of t (first those of the left half, then the root, then the right half)
     //this order applies to every subtree further down
 
-    if(t->left != NULL)
-    {treeToEvenList(t->left, lp);}
+    if (t == NULL)
+        return;
+
+    treeToEvenList(t->left, lp);
 
     if (t->key % 2 == 0)
         append(lp, t->key);
 
-    if(t->right != NULL)
-    {treeToEvenList(t->right, lp);}
+    treeToEvenList(t->right, lp);
 }
 
 int main()

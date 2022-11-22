@@ -45,7 +45,7 @@ void reverseString()
 {
     printf("Type a String (Under 20 characters) \n");
     char String[20];
-    scanf("%s", &String);
+    fgets(String, sizeof(String), stdin);
 
     int length = strlen(String);
     if (length > 20) { printf("The string has to be under 20 characters long! \n"); reverseString(); return;}
