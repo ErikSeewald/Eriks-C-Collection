@@ -36,18 +36,6 @@ int leafprod(tree t) //product of keys of all nodes with no connections (leaves)
     return leafprod(t->left) * leafprod(t->right);
 }
 
-int prom(tree t) //calculates the distances from the furthest left leaf to the root
-{
-    if (t->left == NULL && t->right == NULL)
-        return 1;
-
-    if(t->left != NULL)
-        return 1 + prom(t->left);
-
-    else
-        return 1 + prom(t->right);
-}
-
 void printTree(tree root, int space)
 {
     if (root == NULL)
@@ -65,11 +53,43 @@ void printTree(tree root, int space)
     printTree(root->left, space);
 }
 
+int height(tree t)
+{
+    if (t == NULL)
+        return 0;
+
+    if (t->left == NULL && t->right == NULL)
+        return 1;
+
+    int l = 1 + height(t->left);
+    int r = 1 + height(t->right);
+
+    if (l > r)
+        return l;
+    else
+        return r;
+}
+
+tree balanceFactorS(tree t)
+{
+    //creates a new tree S that has the balance factor (height of left tree minus height of right tree)
+    //at each node
+    if (t == NULL)
+        return NULL;
+
+    tree s = (tree) malloc(sizeof(struct node));
+    s->key = height(t->right) - height(t->left);
+    s->left = balanceFactorS(t->left);
+    s->right = balanceFactorS(t->right);
+
+    return s;
+}
+
 int isRightist(tree t)
 {
     if (t == NULL) //if the tree has no nodes, it is trivially decided to be rightist
         return 1;
-    return (prom(t->left)) <= prom(t->right);
+    return (height(t->left)) <= height(t->right);
 }
 
 int main()
@@ -91,19 +111,21 @@ int main()
     tree r2 = createNode(8, rl2, rr2);
     tree root2 = createNode(4, l2, r2);
 
-    tree t = root1;
+    tree t = root2;
 
     printTree(t, 0);
 
     printf("Leaf product: %d", leafprod(t));
-
-    printf("\nProm of t is: %d", prom(t));
 
     if (isRightist(t) == 1)
         printf("\nT is rightist");
     else
         printf("\nT is not rightist");
 
+    printf("\nThe tree has a height of: %d", height(t));
+
+    printf("\n Balance factor tree: \n");
+    printTree(balanceFactorS(t), 0);
 
     return 0;
 }
