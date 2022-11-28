@@ -58,9 +58,6 @@ int height(tree t)
     if (t == NULL)
         return 0;
 
-    if (t->left == NULL && t->right == NULL)
-        return 1;
-
     int l = 1 + height(t->left);
     int r = 1 + height(t->right);
 
