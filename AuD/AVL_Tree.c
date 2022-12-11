@@ -2,21 +2,46 @@
 #include <stdlib.h>
 #include "Binary_Tree.h"
 
-typedef struct node *tree;
+void lRot(tree *tp) //left AVL rotation
+{
+    tree S = *tp;
+    tree R = S->right;
+    tree RL = R->left;
+
+    *tp = R;
+    R->left = S;
+    S->right = RL;
+}
+
+void rRot(tree *tp) //right AVL rotation
+{
+    tree S = *tp;
+    tree L = S->left;
+    tree LR = L->right;
+
+    *tp = L;
+    L->right = S;
+    S->left = LR;
+}
 
 int main()
 {
-    tree lrr2 = createNode(10, 0, 0);
-    tree lr2 = createNode(0, 0, lrr2);
-    tree rl2 = createNode(1, 0, 0);
-    tree rr2 = createNode(3, 0, 0);
-    tree l2= createNode(2, 0, lr2);
-    tree r2 = createNode(8, rl2, rr2);
-    tree root2 = createNode(4, l2, r2);
+    tree lrr = createNode(5, 0, 0);
+    tree lr = createNode(4, 0, lrr);
+    tree rl = createNode(7, 0, 0);
+    tree rr = createNode(9, 0, 0);
+    tree l= createNode(2, 0, lr);
+    tree r = createNode(8, rl, rr);
+    tree t = createNode(6, l, r);
 
-    tree t = root2;
-
+    puts("Before rotation:");
     printTree(t, 0);
+
+    lRot(&(t->left));
+    puts("\nAfter rotation:");
+
+    printTree(t,0);
+
 
     return 0;
 }
