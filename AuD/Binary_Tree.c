@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "Binary_Tree.h"
 
 typedef struct node *tree;
-struct node { int key; tree left, right; };
 
 tree createNode(int n, tree l, tree r)
 {
@@ -89,6 +89,7 @@ int isRightist(tree t)
     return (height(t->left)) <= height(t->right);
 }
 
+/*
 int main()
 {
     //Tree 1
@@ -126,3 +127,4 @@ int main()
 
     return 0;
 }
+ */

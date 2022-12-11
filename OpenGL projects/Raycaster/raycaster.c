@@ -67,13 +67,12 @@ void drawMap2D()
 	}
 }
 
+//RAYCASTING
 float dist(float ax, float ay, float bx, float by)
 {
 	float v1 = bx-ax, v2 = by-ay;
 	return ( sqrt(v1*v1 + v2*v2) );
 }
-
-//RAYCASTING
 
 void drawRay(float px, float py, float rx, float ry)
 {
