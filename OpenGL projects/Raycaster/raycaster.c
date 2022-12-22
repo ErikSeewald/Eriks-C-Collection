@@ -9,6 +9,12 @@ float PI = constPI; //cant do == comparisons with constants -> extra variable
 float DEG90 = constPI /2;
 float DEG270 = 3*constPI/2;
 
+typedef struct 
+{
+	int w,a,s,d; //button state on off
+}ButtonKeys; 
+ButtonKeys Keys;
+
 int WIDTH = 1024, HEIGHT = 512;
 
 //PLAYER
@@ -35,8 +41,8 @@ int map[] =
 	1,1,1,1,1,1,1,1,
 	1,0,0,0,0,1,0,1,
 	1,1,1,1,0,0,0,1,
-	1,0,0,1,0,1,0,1,
-	1,0,0,1,0,0,0,1,
+	1,0,0,0,0,1,0,1,
+	1,0,0,0,0,0,0,1,
 	1,0,0,0,0,1,0,1,
 	1,0,0,0,0,0,0,1,
 	1,1,1,1,1,1,1,1,
@@ -239,9 +245,43 @@ void raycast()
 }
 
 
+float frame1, frame2, fps;
+
 //DISPLAY
 void display()
 {
+	//frames per second
+	frame2=glutGet(GLUT_ELAPSED_TIME);
+	fps=(frame2-frame1);
+	frame1=glutGet(GLUT_ELAPSED_TIME);
+
+	//ROTATION
+	if(Keys.a==1)	{pa-=0.003*fps; if(pa < 0){pa+=2*PI;} pvx=cos(pa)*5; pvy = sin(pa)*5;}	
+	if(Keys.d==1)	{pa+=0.003*fps; if(pa > 2*PI){pa-=2*PI;} pvx=cos(pa)*5; pvy= sin(pa)*5;}
+
+	//MOVEMENT
+	int xo = 0; if (pvx<0) {xo=-20;} else {xo=20;}
+	int yo = 0; if (pvy<0) {yo=-20;} else {yo=20;}
+	int ipx=px/64, ipx_add_xo=(px+xo)/64, ipx_sub_xo=(px-xo)/64; //PLAYER GRID POS
+	int ipy=py/64, ipy_add_yo=(py+yo)/64, ipy_sub_yo=(py-yo)/64;
+	
+	if(Keys.w==1)	
+	{
+		if(map[ipy*mapX + ipx_add_xo]==0){px+=pvx*0.03*fps;} //COLLISION DETECTION
+		
+		if(map[ipy_add_yo*mapX + ipx]==0){py+=pvy*0.03*fps;}
+	}
+	
+	if(Keys.s==1)	
+	{
+		if(map[ipy*mapX + ipx_sub_xo]==0){px-=pvx*0.03*fps;} //COLLISION DETECTION
+		
+		if(map[ipy_sub_yo*mapX + ipx]==0){py-=pvy*0.03*fps;}
+	}
+	
+	glutPostRedisplay();
+
+	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	drawMap2D();
 	drawPlayer();
@@ -249,14 +289,22 @@ void display()
 	glutSwapBuffers();
 }
 
-void buttons(unsigned char key, int x, int y)
+void ButtonDown(unsigned char key, int x, int y)
 {
-	//using radians instead of degrees -> 0 - 2PI
-	if(key=='a')	{pa-=0.1; if(pa < 0){pa+=2*PI;} pvx=cos(pa)*5; pvy = sin(pa)*5;}	
+	if(key=='a')	{Keys.a=1;}	
+	if(key=='d')	{Keys.d=1;}
+	if(key=='w')	{Keys.w=1;}
+	if(key=='s')	{Keys.s=1;}	
+	
+	glutPostRedisplay();
+}
 
-	if(key=='d')	{pa+=0.1; if(pa > 2*PI){pa-=2*PI;} pvx=cos(pa)*5; pvy= sin(pa)*5;}
-	if(key=='w')	{px+=pvx; py+=pvy;}
-	if(key=='s')	{px-=pvx; py-=pvy;}	
+void ButtonUp(unsigned char key, int x, int y)
+{
+	if(key=='a')	{Keys.a=0;}	
+	if(key=='d')	{Keys.d=0;}
+	if(key=='w')	{Keys.w=0;}
+	if(key=='s')	{Keys.s=0;}	
 	
 	glutPostRedisplay();
 }
@@ -269,14 +317,22 @@ void init()
 	pvx=cos(pa)*5; pvy= sin(pa)*5;
 }
 
+void resize(int w, int h)
+{
+	glutReshapeWindow(1024,512);
+}
+
 int main(int argc, char* argv[])
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 	glutInitWindowSize(WIDTH, HEIGHT);
+	glutInitWindowPosition(200,200);
 	glutCreateWindow("Raycaster");
 	init();
 	glutDisplayFunc(display);
-	glutKeyboardFunc(buttons);
+	glutReshapeFunc(resize);
+	glutKeyboardFunc(ButtonDown);
+	glutKeyboardUpFunc(ButtonUp);
 	glutMainLoop();
 }
